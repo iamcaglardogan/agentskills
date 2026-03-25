@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Optional
 
 from .errors import ParseError
-from .parser import find_skill_md, parse_frontmatter
+from .parser import find_skill_md, parse_frontmatter, resolve_skill_dir
 
 MAX_SKILL_NAME_LENGTH = 64
 MAX_DESCRIPTION_LENGTH = 1024
@@ -156,7 +156,7 @@ def validate(skill_dir: Path) -> list[str]:
     Returns:
         List of validation error messages. Empty list means valid.
     """
-    skill_dir = Path(skill_dir)
+    skill_dir = resolve_skill_dir(skill_dir)
 
     if not skill_dir.exists():
         return [f"Path does not exist: {skill_dir}"]

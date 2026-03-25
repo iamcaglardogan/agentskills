@@ -170,6 +170,23 @@ description: A test skill
     assert props.description == "A test skill"
 
 
+def test_read_properties_with_direct_skill_md_path(tmp_path):
+    """read_properties should accept a direct path to skill.md/SKILL.md."""
+    skill_dir = tmp_path / "my-skill"
+    skill_dir.mkdir()
+    skill_md = skill_dir / "SKILL.md"
+    skill_md.write_text("""---
+name: my-skill
+description: A test skill
+---
+# My Skill
+""")
+
+    props = read_properties(skill_md)
+    assert props.name == "my-skill"
+    assert props.description == "A test skill"
+
+
 def test_read_with_allowed_tools(tmp_path):
     """allowed-tools should be parsed into SkillProperties."""
     skill_dir = tmp_path / "my-skill"
