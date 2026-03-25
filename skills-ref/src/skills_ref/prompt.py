@@ -3,7 +3,7 @@
 import html
 from pathlib import Path
 
-from .parser import find_skill_md, read_properties
+from .parser import find_skill_md, read_properties, resolve_skill_dir
 
 
 def to_prompt(skill_dirs: list[Path]) -> str:
@@ -35,7 +35,7 @@ def to_prompt(skill_dirs: list[Path]) -> str:
     lines = ["<available_skills>"]
 
     for skill_dir in skill_dirs:
-        skill_dir = Path(skill_dir).resolve()
+        skill_dir = resolve_skill_dir(Path(skill_dir)).resolve()
         props = read_properties(skill_dir)
 
         lines.append("<skill>")

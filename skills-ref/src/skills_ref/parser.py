@@ -9,6 +9,14 @@ from .errors import ParseError, ValidationError
 from .models import SkillProperties
 
 
+def resolve_skill_dir(path: Path) -> Path:
+    """Resolve either a skill directory or SKILL.md path to a skill directory."""
+    path = Path(path)
+    if path.is_file() and path.name.lower() == "skill.md":
+        return path.parent
+    return path
+
+
 def find_skill_md(skill_dir: Path) -> Optional[Path]:
     """Find the SKILL.md file in a skill directory.
 
@@ -80,7 +88,7 @@ def read_properties(skill_dir: Path) -> SkillProperties:
         ParseError: If SKILL.md is missing or has invalid YAML
         ValidationError: If required fields (name, description) are missing
     """
-    skill_dir = Path(skill_dir)
+    skill_dir = resolve_skill_dir(skill_dir)
     skill_md = find_skill_md(skill_dir)
 
     if skill_md is None:
