@@ -12,6 +12,18 @@ Skills are folders of instructions, scripts, and resources that agents can disco
 
 This repo contains the specification, documentation, and reference SDK. Also see a list of example skills [here](https://github.com/anthropics/skills).
 
+## Installing skills from GitHub
+
+The [`skills`](skills-cli) CLI installs skills from any GitHub repository:
+
+```bash
+npx skills add <owner>/<repo>[/subpath][#ref]
+```
+
+For example, `npx skills add anthropics/skills/skills/canvas-design` installs
+the `canvas-design` skill into `./skills/canvas-design`. See
+[skills-cli/README.md](skills-cli/README.md) for details.
+
 ## About
 
 Agent Skills is an open format maintained by [Anthropic](https://anthropic.com) and open to contributions from the community.
