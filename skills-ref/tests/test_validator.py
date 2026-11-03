@@ -30,6 +30,22 @@ def test_not_a_directory(tmp_path):
     assert "Not a directory" in errors[0]
 
 
+def test_validate_accepts_direct_skill_md_path(tmp_path):
+    """validate should accept a direct path to SKILL.md."""
+    skill_dir = tmp_path / "my-skill"
+    skill_dir.mkdir()
+    skill_md = skill_dir / "SKILL.md"
+    skill_md.write_text("""---
+name: my-skill
+description: A test skill
+---
+Body
+""")
+
+    errors = validate(skill_md)
+    assert errors == []
+
+
 def test_missing_skill_md(tmp_path):
     skill_dir = tmp_path / "my-skill"
     skill_dir.mkdir()

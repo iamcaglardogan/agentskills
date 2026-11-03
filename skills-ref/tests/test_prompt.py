@@ -26,6 +26,23 @@ Body
     assert "SKILL.md" in result
 
 
+def test_single_skill_with_direct_skill_md_path(tmp_path):
+    """to_prompt should accept direct paths to SKILL.md files."""
+    skill_dir = tmp_path / "my-skill"
+    skill_dir.mkdir()
+    skill_md = skill_dir / "SKILL.md"
+    skill_md.write_text("""---
+name: my-skill
+description: A test skill
+---
+Body
+""")
+
+    result = to_prompt([skill_md])
+    assert "<name>\nmy-skill\n</name>" in result
+    assert str(skill_md) in result
+
+
 def test_multiple_skills(tmp_path):
     skill_a = tmp_path / "skill-a"
     skill_a.mkdir()
